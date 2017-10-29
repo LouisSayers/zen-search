@@ -2,8 +2,9 @@ module Commands end
 
 class ZenSearch
 
-  def initialize(prompter, command_loader)
+  def initialize(prompter, outputter, command_loader)
     @prompter = prompter
+    @outputter = outputter
     @commands = command_loader.load
   end
 
@@ -15,7 +16,7 @@ class ZenSearch
       selected_option = @prompter.enum_select('Please select an option', command_mappings.keys)
       break if selected_option == exit_key
 
-      command_mappings[selected_option].execute
+      command_mappings[selected_option].execute(@prompter, @outputter)
     end
   end
 

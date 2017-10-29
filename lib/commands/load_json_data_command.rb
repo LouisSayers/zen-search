@@ -5,7 +5,7 @@ class Commands::LoadJsonDataCommand
     @display_name = 'Load JSON file'
   end
 
-  def execute
-    puts 'Executed booom!'
+  def execute(prompter, outputter)
+    outputter.puts('Executed booom!')
   end
 end

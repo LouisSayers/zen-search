@@ -1,7 +1,8 @@
 class CommandLoader
 
   def initialize(commands_dir)
-    require_all commands_dir
+    @commands_dir = commands_dir
+    require_all @commands_dir
   end
 
   def load
