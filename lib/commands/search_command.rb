@@ -6,11 +6,25 @@ class Commands::SearchCommand
   end
 
   def execute(prompter, outputter, data_store)
-    data_type = prompter.ask('What type of data are you searching for?', convert: :string)
-    data_value = prompter.ask('What value are you searching for?', convert: :string)
+    data_type = retrieve_search_key(prompter)
 
-    results = SearchEngine.search(data_store, data_type, data_value)
-    outputter.puts results
+    if data_type.nil?
+      outputter.puts 'You must give a type of key to search for'
+    else
+      data_value = retrieve_search_value(prompter)
+      results = SearchEngine.search(data_store, data_type, data_value)
+      outputter.puts results
+    end
+  end
+
+  private
+
+  def retrieve_search_key(prompter)
+    prompter.ask('What type of data are you searching for?', convert: :string)
+  end
+
+  def retrieve_search_value(prompter)
+    prompter.ask('What value are you searching for?', convert: :string)
   end
 
 end
