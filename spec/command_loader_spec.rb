@@ -28,5 +28,13 @@ describe CommandLoader do
         expect { subject }.to raise_error(InvalidCommandError)
       end
     end
+
+    context 'irrelevant files in the commands directory' do
+      let(:commands_path) { File.join(File.dirname(__FILE__), 'test_files', 'command_loader', 'irrelevant_files') }
+
+      it 'no commands are loaded' do
+        expect(subject).to be_empty
+      end
+    end
   end
 end

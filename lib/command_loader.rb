@@ -24,7 +24,7 @@ class CommandLoader
       klass = Object.const_get("Commands::#{camel_case_name}Command")
       klass.new
     rescue NameError => ex
-      message = "Please ensure command names match their file names.\n#{ex.message}"
+      message = "Please ensure command classes match their file name and are in the Commands:: namespace.\n#{ex.message}"
       raise InvalidCommandError.new(message)
     end
   end
