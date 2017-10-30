@@ -6,7 +6,13 @@ class SearchEngine
       search_values << (search_value == 'true') if boolean?(search_value)
 
       store.select do |entry|
-        search_values.include? entry[search_key]
+        value = entry[search_key]
+
+        if value.is_a?(Array)
+          value.any? { |val| search_values.include?(val) }
+        else
+          search_values.include?(value)
+        end
       end
     end
 

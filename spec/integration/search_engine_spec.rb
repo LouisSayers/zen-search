@@ -6,17 +6,23 @@ describe SearchEngine do
     let(:data_store) { DataStore.new }
     let(:alias_value) { 'Buddha' }
     let(:likes_bananas) { true }
+    let(:tag1) { 'tag1' }
+    let(:tag2) { 'tag2' }
+    let(:tag3) { 'tag3' }
     let(:entry1) do
       {
         "_id" => 1,
         "alias" => alias_value,
-        "likes_bananas" => likes_bananas
+        "likes_bananas" => likes_bananas,
+        "tags" => [ tag1, tag2, tag3 ]
       }
     end
     let(:entry2) do
       {
         "_id" => 2,
-        "alias" => 'Some other alias'
+        "alias" => 'Some other alias',
+        "likes_bananas" => !likes_bananas,
+        "tags" => []
       }
     end
     let(:search_data) { [ entry1, entry2 ] }
@@ -50,6 +56,16 @@ describe SearchEngine do
     context 'json value is a boolean' do
       let(:search_key) { 'likes_bananas' }
       let(:search_value) { likes_bananas.to_s }
+
+      context 'full match' do
+        let(:expected_value) { [ entry1 ] }
+        it { is_expected.to eq expected_value }
+      end
+    end
+
+    context 'json value is an array' do
+      let(:search_key) { 'tags' }
+      let(:search_value) { tag3 }
 
       context 'full match' do
         let(:expected_value) { [ entry1 ] }
