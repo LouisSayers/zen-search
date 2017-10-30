@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'bundler'
+require 'tty-prompt'
 require 'byebug'
 require 'require_all'
 require 'json'
