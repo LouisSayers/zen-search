@@ -10,14 +10,14 @@ class ZenSearch
   end
 
   def run
-    exit_key = 'Exit'
-    command_mappings = commands_by_name.merge(exit_key => nil)
-
-    loop do
-      selected_option = @prompter.enum_select('Please select an option', command_mappings.keys)
-      break if selected_option == exit_key
-
-      command_mappings[selected_option].execute(@prompter, @outputter, @data_store)
+    begin
+      loop do
+        command_mappings = commands_by_name
+        selected_option = @prompter.enum_select('Please select an option', command_mappings.keys)
+        command_mappings[selected_option].execute(@prompter, @outputter, @data_store)
+      end
+    rescue TTY::Reader::InputInterrupt, ExitInterrupt
+      @outputter.puts "\nThanks for using ZenSearch!"
     end
   end
 

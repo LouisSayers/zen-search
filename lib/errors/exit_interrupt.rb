@@ -1,0 +1,2 @@
+class ExitInterrupt < StandardError
+end
