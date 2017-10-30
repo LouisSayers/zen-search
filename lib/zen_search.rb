@@ -2,10 +2,10 @@ module Commands end
 
 class ZenSearch
 
-  def initialize(prompter, outputter, command_loader, data_store)
+  def initialize(prompter, outputter, commands, data_store)
     @prompter = prompter
     @outputter = outputter
-    @commands = command_loader.load
+    @commands = commands
     @data_store = data_store
   end
 
