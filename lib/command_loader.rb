@@ -7,7 +7,8 @@ class CommandLoader
 
   def load
     [
-      Commands::LoadJsonDataCommand.new
+      Commands::LoadJsonDataCommand.new,
+      Commands::SearchCommand.new
     ]
   end
 

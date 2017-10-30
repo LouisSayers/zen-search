@@ -12,4 +12,8 @@ class AcceptanceTestPrompter
     @actions.shift
   end
 
+  def ask(prompt, opts = {})
+    @actions.shift
+  end
+
 end

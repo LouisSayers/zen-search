@@ -4,7 +4,8 @@ end
 
 Given("the {string} file is loaded") do |file_name|
   @json_file_name = file_name
-  @prompter.next_action = file_name
+  file_path = File.join(@json_file_path, @json_file_name)
+  @prompter.next_action = file_path
 end
 
 Given("the search term {string} is entered") do |search_term|
