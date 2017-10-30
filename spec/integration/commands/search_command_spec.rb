@@ -56,6 +56,24 @@ describe Commands::SearchCommand do
         expect(outputter).to have_received(:puts).with(expected_invalid_type_message)
       end
     end
+
+    context 'no search results found' do
+      let(:search_key) { 'SearchKey' }
+      let(:search_value) { 'a search value' }
+      let(:search_results) { [] }
+      let(:no_results_message) { "No results were found.\n" }
+
+      before do
+        allow(prompter).to receive(:ask).with('What type of data are you searching for?', convert: :string) { search_key }
+        allow(prompter).to receive(:ask).with('What value are you searching for?', convert: :string) { search_value }
+        allow(SearchEngine).to receive(:search).with(data_store, search_key, search_value) { search_results }
+        subject
+      end
+
+      it 'informs the user that no results were found' do
+        expect(outputter).to have_received(:puts).with(no_results_message)
+      end
+    end
   end
 
 end

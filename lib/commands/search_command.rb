@@ -13,7 +13,7 @@ class Commands::SearchCommand
     else
       data_value = retrieve_search_value(prompter)
       results = SearchEngine.search(data_store, data_type, data_value)
-      outputter.puts results
+      print_search_results(outputter, results)
     end
   end
 
@@ -25,6 +25,11 @@ class Commands::SearchCommand
 
   def retrieve_search_value(prompter)
     prompter.ask('What value are you searching for?', convert: :string)
+  end
+
+  def print_search_results(outputter, results)
+    message = results.empty? ? "No results were found.\n" : results
+    outputter.puts message
   end
 
 end
