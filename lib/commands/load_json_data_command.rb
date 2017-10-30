@@ -24,11 +24,17 @@ class Commands::LoadJsonDataCommand
       data_store.store(file_name, json_data)
     rescue Errno::ENOENT
       print_no_file_message(outputter)
+    rescue JSON::ParserError
+      print_json_malformed_message(outputter)
     end
   end
 
   def print_no_file_message(outputter)
     outputter.puts 'It seems that there is no file at that location...'
+  end
+
+  def print_json_malformed_message(outputter)
+    outputter.puts 'A problem was encountered reading the JSON file - it seems to be malformed.'
   end
 
   def read_json(path)

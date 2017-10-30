@@ -7,25 +7,24 @@ describe DataStore do
     let(:test_data) do
       [
         {
-          "_id" => 1,
-          "alias" => 'An alias',
-          "likes_bananas" => true,
-          "tags" => [ 'tag1', 'tag2', 'tag3' ]
+          '_id' => 1,
+          'alias' => 'An alias',
+          'likes_bananas' => true,
+          'tags' => %w(tag1 tag2 tag3)
         }
       ]
     end
-    let(:condition) { -> (entry) { true } }
 
     subject do
-      data_store.select { |entry| condition.call(entry) }
+      data_store.select { condition_met }
     end
 
     context 'no data loaded' do
       it { is_expected.to eq [] }
     end
 
-    context "data loaded, but doesn't meet conditions" do
-      let(:condition) { -> (entry) { false } }
+    context 'data loaded, but does not meet conditions' do
+      let(:condition_met) { false }
 
       before { data_store.store('test', test_data) }
 
@@ -33,7 +32,7 @@ describe DataStore do
     end
 
     context 'data loaded, and meets conditions' do
-      let(:condition) { -> (entry) { true } }
+      let(:condition_met) { true }
 
       before { data_store.store('test', test_data) }
 
@@ -44,14 +43,14 @@ describe DataStore do
       let(:other_test_data) do
         [
           {
-            "_id" => 33,
-            "alias" => 'Some other alias',
-            "likes_bananas" => true,
-            "tags" => [ 'tag1', 'tag2', 'tag3' ]
+            '_id' => 33,
+            'alias' => 'Some other alias',
+            'likes_bananas' => true,
+            'tags' => %w(tag1 tag2 tag3)
           }
         ]
       end
-      let(:condition) { -> (entry) { true } }
+      let(:condition_met) { true }
       let(:merged_test_data) do
         [
           test_data,
