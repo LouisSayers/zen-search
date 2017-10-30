@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe CommandLoader do
-  let(:commands_path) { File.join(File.dirname(__FILE__), 'test_files', 'command_loader', 'valid') }
+  let(:base_path) { File.join(File.dirname(__FILE__), '..', 'test_files', 'command_loader') }
+  let(:commands_path) { File.join(base_path, 'valid') }
   let(:command_loader) { described_class.new(commands_path) }
 
   describe '#load' do
@@ -18,7 +19,7 @@ describe CommandLoader do
     end
 
     context 'file name / class name mismatch' do
-      let(:commands_path) { File.join(File.dirname(__FILE__), 'test_files', 'command_loader', 'classname_mismatch') }
+      let(:commands_path) { File.join(base_path, 'classname_mismatch') }
 
       before do
         hide_const('Commands::TestCommand') if defined? Commands::TestCommand
@@ -30,7 +31,7 @@ describe CommandLoader do
     end
 
     context 'irrelevant files in the commands directory' do
-      let(:commands_path) { File.join(File.dirname(__FILE__), 'test_files', 'command_loader', 'irrelevant_files') }
+      let(:commands_path) { File.join(base_path, 'irrelevant_files') }
 
       it 'no commands are loaded' do
         expect(subject).to be_empty
