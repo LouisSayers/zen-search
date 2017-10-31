@@ -13,7 +13,7 @@ class ZenSearch
     begin
       loop do
         command_mappings = commands_by_name
-        selected_option = @prompter.enum_select('Please select an option', command_mappings.keys)
+        selected_option = @prompter.enum_select('Please select an option:', command_mappings.keys)
         command_mappings[selected_option].execute(@prompter, @outputter, @data_store)
       end
     rescue TTY::Reader::InputInterrupt, ExitInterrupt
