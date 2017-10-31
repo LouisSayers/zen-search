@@ -17,4 +17,8 @@ _This project assumes the use of Ruby Version Manager (rvm) for managing ruby an
 * Install gem dependencies `bundle install`
 * Run the application `ruby zen_search.rb`
  
- 
+## Limitations
+* The order of commands as presented in the terminal is based on the file name of the command
+* When loading JSON files, the file paths must be relative to the project directory (absolute paths are not supported)
+* Only full search is supported
+* Search is currently case sensitive
