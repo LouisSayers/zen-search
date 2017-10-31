@@ -35,7 +35,8 @@ describe Commands::SearchCommand do
       end
 
       it 'prints the output from the search' do
-        expect(outputter).to have_received(:puts).with(search_results)
+        pretty_search_results = "#{JSON.pretty_generate(search_results)}\n\n"
+        expect(outputter).to have_received(:puts).with(pretty_search_results)
       end
     end
 
@@ -61,7 +62,7 @@ describe Commands::SearchCommand do
       let(:search_key) { 'SearchKey' }
       let(:search_value) { 'a search value' }
       let(:search_results) { [] }
-      let(:no_results_message) { "No results were found.\n" }
+      let(:no_results_message) { "No results were found.\n\n" }
 
       before do
         allow(prompter).to receive(:ask).with('What type of data are you searching for?', convert: :string) { search_key }

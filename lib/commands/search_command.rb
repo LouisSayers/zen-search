@@ -28,8 +28,8 @@ class Commands::SearchCommand
   end
 
   def print_search_results(outputter, results)
-    message = results.empty? ? "No results were found.\n" : results
-    outputter.puts message
+    message = results.empty? ? "No results were found." : JSON.pretty_generate(results)
+    outputter.puts "#{message}\n\n"
   end
 
 end
