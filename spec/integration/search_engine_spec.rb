@@ -14,7 +14,9 @@ describe SearchEngine do
         "_id" => 1,
         "alias" => alias_value,
         "likes_bananas" => likes_bananas,
-        "tags" => [ tag1, tag2, tag3 ]
+        "tags" => [ tag1, tag2, tag3 ],
+        "children" => 0,
+        "has_insurance" => true
       }
     end
     let(:entry2) do
@@ -22,10 +24,22 @@ describe SearchEngine do
         "_id" => 2,
         "alias" => 'Some other alias',
         "likes_bananas" => !likes_bananas,
-        "tags" => []
+        "tags" => [],
+        "children" => nil,
+        "has_insurance" => nil
       }
     end
-    let(:search_data) { [ entry1, entry2 ] }
+    let(:entry3) do
+      {
+        "_id" => 2,
+        "alias" => '',
+        "likes_bananas" => !likes_bananas,
+        "tags" => [],
+        "children" => 3,
+        "has_insurance" => false
+      }
+    end
+    let(:search_data) { [ entry1, entry2, entry3 ] }
 
     subject { described_class.search(data_store, search_key, search_value) }
 
@@ -41,6 +55,12 @@ describe SearchEngine do
         let(:expected_value) { [ entry1 ] }
         it { is_expected.to eq expected_value }
       end
+
+      context 'search value is nil' do
+        let(:search_value) { nil }
+        let(:expected_value) { [ entry3 ] }
+        it { is_expected.to eq expected_value }
+      end
     end
 
     context 'json value is an integer' do
@@ -49,6 +69,13 @@ describe SearchEngine do
 
       context 'full match' do
         let(:expected_value) { [ entry1 ] }
+        it { is_expected.to eq expected_value }
+      end
+
+      context 'search value is nil' do
+        let(:search_key) { 'children' }
+        let(:search_value) { nil }
+        let(:expected_value) { [ entry2 ] }
         it { is_expected.to eq expected_value }
       end
     end
@@ -61,6 +88,13 @@ describe SearchEngine do
         let(:expected_value) { [ entry1 ] }
         it { is_expected.to eq expected_value }
       end
+
+      context 'search value is nil' do
+        let(:search_key) { 'has_insurance' }
+        let(:search_value) { nil }
+        let(:expected_value) { [ entry2 ] }
+        it { is_expected.to eq expected_value }
+      end
     end
 
     context 'json value is an array' do
@@ -71,6 +105,21 @@ describe SearchEngine do
         let(:expected_value) { [ entry1 ] }
         it { is_expected.to eq expected_value }
       end
+
+      context 'search value is nil' do
+        let(:search_value) { nil }
+        let(:expected_value) { [ entry2, entry3 ] }
+        it { is_expected.to eq expected_value }
+      end
+    end
+
+    context 'json entry has key missing and searching for nil' do
+      let(:entry4) { { "_id" => 4 } }
+      let(:search_data) { [ entry1, entry2, entry3, entry4 ] }
+      let(:search_key) { 'likes_bananas' }
+      let(:search_value) { nil }
+
+      it { is_expected.to eq [] }
     end
   end
 
