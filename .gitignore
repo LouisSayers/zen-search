@@ -1,2 +1,5 @@
 .idea
 .byebug_history
+sample_data/performance_*.json
+.DS_STORE
+
