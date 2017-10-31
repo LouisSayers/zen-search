@@ -7,6 +7,8 @@ class DataStore
   end
 
   def store(name, data)
+    data = transform_data(data)
+
     @data[name] = data
   end
 
@@ -24,6 +26,16 @@ class DataStore
 
   def select(&block)
     @data.values.flatten.select(&block)
+  end
+
+  private
+
+  def transform_data(data)
+    case data
+      when Array then data
+      when Hash then [ data ]
+      else raise ArgumentError.new('Invalid data type given for storage')
+    end
   end
 
 end

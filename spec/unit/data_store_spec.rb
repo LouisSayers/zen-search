@@ -3,6 +3,43 @@ require 'spec_helper'
 describe DataStore do
   let(:data_store) { described_class.new }
 
+  describe '#store' do
+    let(:name) { 'users' }
+    let(:entry) { { a: 1, b: 2 } }
+    let(:internal_data_store) { data_store.instance_variable_get(:@data) }
+    let(:expected_stored_data) { { name => [ entry ] } }
+
+    subject { data_store.store(name, data) }
+
+    context 'data is an array' do
+      let(:data) { [ entry ] }
+
+      before { subject }
+
+      it 'stores data as is' do
+        expect(internal_data_store).to eq expected_stored_data
+      end
+    end
+
+    context 'data is a hash' do
+      let(:data) { entry }
+
+      before { subject }
+
+      it 'puts data into an array and stores' do
+        expect(internal_data_store).to eq expected_stored_data
+      end
+    end
+
+    context 'data is of another type' do
+      let(:data) { 123 }
+
+      it 'raises an ArgumentError' do
+        expect { subject }.to raise_error(ArgumentError)
+      end
+    end
+  end
+
   describe '#select' do
     let(:test_data) do
       [

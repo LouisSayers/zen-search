@@ -1,0 +1,25 @@
+{
+  "_id": 26,
+  "url": "http://initech.zendesk.com/api/v2/users/26.json",
+  "external_id": "2fe9f6de-4576-4076-9686-19d7cfcc8378",
+  "name": "Rosa Wright",
+  "alias": "Miss Jones",
+  "created_at": "2016-04-23T06:34:15 -10:00",
+  "active": false,
+  "verified": false,
+  "shared": false,
+  "locale": "zh-CN",
+  "last_login_at": "2014-12-24T02:32:32 -11:00",
+  "email": "joneswright@flotonic.com",
+  "phone": "8034-232-199",
+  "signature": "Don't Worry Be Happy!",
+  "organization_id": 123,
+  "tags": [
+    "Kidder",
+    "Castleton",
+    "Stewartville",
+    "Bascom"
+  ],
+  "suspended": true,
+  "role": "end-user"
+}
