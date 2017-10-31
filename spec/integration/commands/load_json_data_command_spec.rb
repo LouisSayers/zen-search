@@ -8,6 +8,7 @@ describe Commands::LoadJsonDataCommand do
     let(:prompter) { double }
     let(:outputter) { double }
     let(:data_store) { double }
+    let(:enter_path_message) { 'Please enter the relative path of the file to load:' }
 
     subject { command.execute(prompter, outputter, data_store) }
 
@@ -16,7 +17,7 @@ describe Commands::LoadJsonDataCommand do
 
       before do
         allow(outputter).to receive(:puts)
-        allow(prompter).to receive(:ask).with('Please enter the path of the file', convert: :path) { pathname }
+        allow(prompter).to receive(:ask).with(enter_path_message, convert: :path) { pathname }
       end
 
       it 'does not raise an error' do
@@ -44,7 +45,7 @@ describe Commands::LoadJsonDataCommand do
 
       before do
         allow(outputter).to receive(:puts)
-        allow(prompter).to receive(:ask).with('Please enter the path of the file', convert: :path) { pathname }
+        allow(prompter).to receive(:ask).with(enter_path_message, convert: :path) { pathname }
       end
 
       it 'does not raise an error' do

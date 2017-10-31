@@ -6,7 +6,7 @@ class Commands::LoadJsonDataCommand
   end
 
   def execute(prompter, outputter, data_store)
-    path = prompter.ask('Please enter the path of the file', convert: :path)
+    path = prompter.ask('Please enter the relative path of the file to load:', convert: :path)
 
     if path.nil?
       print_no_file_message(outputter)
